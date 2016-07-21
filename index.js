@@ -6,12 +6,14 @@ var port = process.env.PORT || 8080;
 var apiKey = require('./config').apiKey;
 var $http = require('axios');
 var logger = require('./logger');
+var authorize = require('./auth');
 var baseUrl = 'https://api.forecast.io/forecast/';
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(cors());
 server.use(logger);
+server.use(authorize);
 
 server.get('/forecast/hourly/:lat,:lon', function(req,res)
 {
